@@ -32,21 +32,15 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
+
     <v-content>
-       
-
-
-    <h1>ToDo</h1>
+    <p class="display-2 text-center">ToDo(not) List</p>
       <task-form @add:task="addTask"/>
 
       <task-table :tasklist="tasklist"
                   @delete:task = "deleteTask"
                   @edit:task = "editTask"
                   />
-     
-
-
-
       <v-container
         class="fill-height"
         fluid
@@ -102,7 +96,6 @@
 <script>
  import TaskTable from '@/components/TaskTable.vue'
  import TaskForm from '@/components/TaskForm.vue'
-
   export default {
     name: 'app',
     components: {

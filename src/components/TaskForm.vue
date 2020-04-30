@@ -2,28 +2,28 @@
 	<div id="task-form">
 		<form @submit.prevent="handleSubmit">
 			<label>Task Name</label>
-			<input ref = "first"
-			v-model="task.name" 
-			type="text"
-			:class="{ 'has-error': submitting && invalidName }"
-			@focus="clearStatus"
-			@keypress="clearStatus"
-			/>
+			<v-text-field outlined background-color="blue lighten-5" ref = "first" placeholder="ex. don't study" 
+				v-model="task.name" 
+				type="text"
+				:class="{ 'has-error': submitting && invalidName }"
+				@focus="clearStatus"
+				@keypress="clearStatus"
+				/>
 			<label>Task Date</label>
-			<input 
-			v-model="task.date" 
-			type="text"
-			:class="{ 'has-error': submitting && invalidDate }"
-			@focus="clearStatus" 
-			/>
-			<p v-if = "success" class = "success-message">
+			<v-text-field outlined background-color="blue lighten-5" placeholder="ex. never"
+				v-model="task.date" 
+				type="text"
+				:class="{ 'has-error': submitting && invalidDate }"
+				@focus="clearStatus" 
+				/>
+			<p v-if="success" class="success-message">
 				Task successfully added
 			</p>
-			<p v-if = "error && submitting" class = "error-message">
+			<p v-if="error && submitting" class="error-message">
 				❗Please fill out all required fields
 			</p>
 			
-			<button>Add Task</button>
+			<v-btn color="primary" type="submit">Add Task</v-btn>
 		</form>
 	</div>
 </template>

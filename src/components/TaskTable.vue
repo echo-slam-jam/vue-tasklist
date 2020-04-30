@@ -1,8 +1,8 @@
 <template>
 	<div id="task-table">
-		<p v-if = "tasklist.length < 1" class = "empty-table">Something is wrong :)
+		<p v-if="tasklist.length < 1" class="empty-table">Something is wrong :)
 		</p>
-		<table v-else>
+		<v-simple-table fixed-header height="300px" v-else>
 			<thead>
 				<tr>
 					<th>Task name</th>
@@ -13,26 +13,26 @@
 			<tbody>
 				<tr v-for="task in tasklist" :key="task.id">
 					<td v-if = "editing === task.id">
-						<input type="text" v-model = "task.name">
+						<v-text-field autofocus type="text" v-model="task.name"/>
 					</td>
 					<td v-else>{{ task.name }}</td>
 					<td v-if = "editing === task.id">
-						<input type="text" v-model = "task.date">
+						<v-text-field type="text" v-model="task.date"/>
 					</td>
 					<td v-else>{{ task.date }}</td>
 					<td v-if = "editing === task.id">
-						<button @click = "editTask(task)">
+						<v-btn @click="editTask(task)">
 							Save
-						</button>
-						<button class = "muted-button" @click = "cancelEdit(task)"> Cancel</button>
+						</v-btn>
+						<v-btn class = "muted-button" @click="cancelEdit(task)"> Cancel</v-btn>
 					</td>
 					<td v-else>
-						<button @click = "editMode(task)">Edit</button>
-						<button @click = "$emit('delete:task', task.id)">Delete</button>
+						<v-btn color="blue lighten-3" @click="editMode(task)">Edit</v-btn>
+						<v-btn color="error" @click="$emit('delete:task', task.id)">Delete</v-btn>
 					</td>
 				</tr>	
 			</tbody>
-		</table>
+		</v-simple-table>
 	</div>
 </template>
 
