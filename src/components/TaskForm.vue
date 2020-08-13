@@ -1,98 +1,84 @@
 <template>
-	<div id="task-form">
-		<form @submit.prevent="handleSubmit">
-			<label>Task Name</label>
-			<v-text-field outlined background-color="blue lighten-5" ref = "first" placeholder="ex. don't study" 
-				v-model="task.name" 
-				type="text"
-				:class="{ 'has-error': submitting && invalidName }"
-				@focus="clearStatus"
-				@keypress="clearStatus"
-				/>
-			<label>Task Date</label>
-			<v-text-field outlined background-color="blue lighten-5" placeholder="ex. never"
-				v-model="task.date" 
-				type="text"
-				:class="{ 'has-error': submitting && invalidDate }"
-				@focus="clearStatus" 
-				/>
-			<p v-if="success" class="success-message">
-				Task successfully added
-			</p>
-			<p v-if="error && submitting" class="error-message">
-				❗Please fill out all required fields
-			</p>
-			
-			<v-btn color="primary" type="submit">Add Task</v-btn>
-		</form>
-	</div>
+    <div id="task-form">
+        <form @submit.prevent="handleSubmit">
+            <label>Task Name</label>
+            <v-text-field outlined background-color="blue lighten-5" ref="first" placeholder="ex. don't study" v-model="task.name" type="text" :class="{ 'has-error': submitting && invalidName }" @focus="clearStatus" @keypress="clearStatus" />
+            <label>Task Date</label>
+            <v-text-field outlined background-color="blue lighten-5" placeholder="ex. never" v-model="task.date" type="text" :class="{ 'has-error': submitting && invalidDate }" @focus="clearStatus" />
+            <p v-if="success" class="success-message">
+                Task successfully added
+            </p>
+            <p v-if="error && submitting" class="error-message">
+                ❗Please fill out all required fields
+            </p>
+            <v-btn color="primary" type="submit">Add Task</v-btn>
+        </form>
+    </div>
 </template>
-
 <script>
-	export default {
-		name: 'task-form',
-		data() {
-			return {
-submitting: false,
-error: false,
-success: false,
-				task: {
-					name: '',
-					date: '',
-				},
-			}
-		},
-		computed: {
-  invalidName() {
-    return this.task.name === ''
-  },
+export default {
+    name: 'task-form',
+    data() {
+        return {
+            submitting: false,
+            error: false,
+            success: false,
+            task: {
+                name: '',
+                date: '',
+            },
+        }
+    },
+    computed: {
+        invalidName() {
+            return this.task.name === ''
+        },
 
-  invalidDate() {
-    return this.task.date === ''
-  },
-},
-		methods: {
-			handleSubmit() {
-				this.submitting = true
-				this.clearStatus()
+        invalidDate() {
+            return this.task.date === ''
+        },
+    },
+    methods: {
+        handleSubmit() {
+            this.submitting = true
+            this.clearStatus()
 
-				if (this.invalidName || this.invalidDate) {
-					this.error = true
-					return
-				}
+            if (this.invalidName || this.invalidDate) {
+                this.error = true
+                return
+            }
 
-				this.$emit('add:task', this.task)
-				this.$refs.first.focus()
-				this.task = {
-					name: '',
-					date: '',
-				}
-				this.error = false
-				this.success = true
-				this.submitting = false
-			},
-			clearStatus() {
-				this.success = false
-				this.error = false
-			}
-		}
-	}
+            this.$emit('add:task', this.task)
+            this.$refs.first.focus()
+            this.task = {
+                name: '',
+                date: '',
+            }
+            this.error = false
+            this.success = true
+            this.submitting = false
+        },
+        clearStatus() {
+            this.success = false
+            this.error = false
+        }
+    }
+}
 </script>
-
 <style scoped>
-  form {
+form {
     margin-bottom: 2rem;
-  }
+}
 
-  [class*='-message'] {
+[class*='-message'] {
     font-weight: 500;
-  }
+}
 
-  .error-message {
+.error-message {
     color: #d33c40;
-  }
+}
 
-  .success-message {
+.success-message {
     color: #32a95d;
-  }
+}
 </style>
